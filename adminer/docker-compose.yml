@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  adminer:
+    image: adminer
+    ports:
+      - 80:8080
+
+  db:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=example
+
+    env_file:
+      - .env
+    volumes: 
+      - ./init/:/docker-entrypoint-initdb.d/
+      - datas:/var/lib/mysql/
+
+volumes:
+  datas:
+    driver: local
+
+
